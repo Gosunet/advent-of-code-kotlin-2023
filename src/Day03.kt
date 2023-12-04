@@ -3,10 +3,10 @@ fun main() {
     val parts = mutableListOf<Part>()
     val symbol = mutableListOf<Symbol>()
     input.withIndex().forEach { (index, line) ->
-      Regex("\\d+").findAll(line).forEach { matchResult ->
+      "\\d+".toRegex().findAll(line).forEach { matchResult ->
         parts.add(Part(matchResult.value.toInt(), PartPosition(index, matchResult.range)))
       }
-      Regex("[^\\w\\s.]").findAll(line).forEach { matchResult ->
+      "[^\\w\\s.]".toRegex().findAll(line).forEach { matchResult ->
         symbol.add(Symbol(matchResult.range.first, index))
       }
     }
@@ -39,10 +39,7 @@ fun main() {
       }
     }
 
-    var sumOfGear = 0
-    println(gears)
-    println(parts)
-    gears.forEach { gear ->
+    return gears.sumOf { gear ->
       val startIndexBufferZone = gear.x - 1
       val endIndexBufferZone = gear.x + 1
       val topIndexBufferZone = gear.y - 1
@@ -52,13 +49,12 @@ fun main() {
         part.position.x in topIndexBufferZone..bottomIndexBufferZone && (part.position.y.first in startIndexBufferZone..endIndexBufferZone || part.position.y.last in startIndexBufferZone..endIndexBufferZone)
       }
       if (partsInGearZone.size == 2) {
-        println(partsInGearZone)
         val gearValue = partsInGearZone[0].value * partsInGearZone[1].value
-        sumOfGear += gearValue
+        gearValue
+      } else {
+        0
       }
     }
-
-    return sumOfGear
   }
 
   val testInput = readInput("day_03_test")
