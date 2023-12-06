@@ -1,6 +1,3 @@
-import kotlinx.coroutines.runBlocking
-import kotlin.math.absoluteValue
-import kotlin.math.pow
 import kotlin.system.measureTimeMillis
 
 fun main() {
@@ -119,16 +116,15 @@ fun main() {
   fun soils(
     seedRange: LongRange,
     mappingTablesSeedSoil: List<MappingTable>
-  ) = runBlocking {
-    seedRange.asSequence().map { seed ->
-      mappingTablesSeedSoil.forEach { mappingTable ->
-        if (seed in mappingTable.sourceRange) {
-          return@map (mappingTable.destinationRange.first - mappingTable.sourceRange.first) + seed
-        }
+  ) = seedRange.asSequence().map { seed ->
+    mappingTablesSeedSoil.forEach { mappingTable ->
+      if (seed in mappingTable.sourceRange) {
+        return@map (mappingTable.destinationRange.first - mappingTable.sourceRange.first) + seed
       }
-      seed
     }
+    seed
   }
+
 
   fun part2(input: List<String>): Long {
     val (seedRanges, mappingTables) = parse(input)
@@ -197,12 +193,12 @@ fun main() {
 //  check(testActual2 == 46L) { "Expected 46, got $testActual2" }
 
 //  part1(readInput("day05")).println()
-  runBlocking {
-    val time = measureTimeMillis {
-      part2(readInput("day05")).println()
-    }
-    println(time)
+
+  val time = measureTimeMillis {
+    part2(readInput("day05")).println()
   }
+  println(time)
+
 }
 
 data class MappingTable(
