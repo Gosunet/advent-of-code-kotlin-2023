@@ -19,3 +19,11 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+
+fun List<String>.transpose(): List<String> {
+    val maxLength = this.maxByOrNull { it.length }?.length ?: 0
+    return List(maxLength) { index ->
+        this.map { str -> if (index < str.length) str[index] else ' ' }.joinToString("")
+    }
+}

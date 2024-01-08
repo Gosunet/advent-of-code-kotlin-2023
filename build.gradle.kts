@@ -10,10 +10,8 @@ sourceSets {
 dependencies {
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC")
-
-//    implementation(files("polygon-1.0.2.jar"))
-//    implementation("org.apache.commons:commons-geometry-parent:1.0")
-
+    implementation("org.choco-solver:choco-solver:4.10.10")
+    implementation("org.jgrapht:jgrapht:1.5.2")
 }
 
 tasks {
